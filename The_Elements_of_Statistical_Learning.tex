@@ -19,17 +19,17 @@
 
 \section{序章}
 \section{教師あり学習の概要}
-%%% 2.1
+%%% Ex.2.1
 \subsection{}
 \begin{shadebox}
 $K$クラス分類問題の目標変数$t_k$が、第$k$要素のみが$1$で他の要素は$0$である$K$次元ベクトルによって表されているとする。予測結果$\hat{y}$を全ての要素の和が$1$となるように正規化したとき、$\hat{y}$の最大要素を持つクラスへの分類と$||t_k-\hat{y}||$を最小化するクラスへの分類が等価であることを示せ。
 \end{shadebox}
-$\hat{y}$の最大要素が第$j$要素であるとする。
+$\hat{y}$の最大要素が第$j$要素$\hat{y_j}$であるとする。
 \begin{align*}
 &\ \ \ ||t_k-\hat{y}||^2-||t_j-\hat{y}||^2\\
 &=\{\sum_{i\neq k}\hat{y_i}^2+(1-\hat{y_k})^2\}-\{\sum_{i\neq j}\hat{y_i}^2+(1-\hat{y_j})^2\}\\
 &=\hat{y_j}^2+(1-\hat{y_k})^2-\hat{y_k}^2-(1-\hat{y_j})^2\\
-&=2(\hat{y_j}-\hat{y_k})
+&=2(\hat{y_j}-\hat{y_k})\geq0
 \end{align*}
 よって、$k=j$のとき、$||t_k-\hat{y}||$が最小になることがわかる。以上より、$\hat{y}$の最大要素を持つクラスへの分類$j$と、$||t_k-\hat{y}||$を最小化するクラスへの分類が等価であることがわかる。
 
@@ -70,6 +70,7 @@ $N$個の$p$次元ベクトル$x_i\ (i=1,...,N)$が青色の点として観測�
 と表される。これを計算機でいい感じに求めることができるのかどうか、知りませんが。。。
 
 
+%Ex.2.3
 \subsection{}
 
 \begin{shadebox}
@@ -92,28 +93,113 @@ d&=(1-(\frac{1}{2})^\frac{1}{N})^\frac{1}{p}
 以上より、$d(p,N)=(1-(\frac{1}{2})^\frac{1}{N})^\frac{1}{p}$と求められた。
 
 
+%Ex.2.4
+\subsection{}
+
+%Ex.2.5
+\subsection{}
+\begin{shadebox}
+\begin{enumerate}
+\item[(a)]
+式(2.27)を導出せよ。
+\item[(b)]
+式(2.28)を導出せよ。
+\end{enumerate}
+\end{shadebox}
+
+\begin{enumerate}
+\item[(a)]
+\begin{align*}
+{\rm EPE}(x_0)&=\mathbb{E}_{y_0|x_0}[\mathbb{E}_{\cal T}[(y_0-\hat{y}_0)^2]]\\
+&=\mathbb{E}_{y_0|x_0}[\mathbb{E}_{\cal T}[y_0^2-2y_0 \hat{y}_0+\hat{y}_0^2]]
+\end{align*}
+ここで、$y_0$はトレーニングデータ${\cal T}$には依存せず、予測値$\hat{y}_0$は真の値$y_0$には依存しないので、
+\begin{align*}
+{\rm EPE}(x_0)&=\mathbb{E}_{y_0|x_0}[y_0^2]-2\mathbb{E}_{y_0|x_0}[y_0] \mathbb{E}_{\cal T}[\hat{y}_0]+\mathbb{E}_{\cal T}[\hat{y}_0^2]
+\end{align*}
+分散と平均の関係$\mathbb{E}(x^2)={\rm Var(x)}+{\mathbb{E}(x)}^2$を用いることで、
+\begin{align*}
+{\rm EPE}(x_0)&={\rm Var}(y_0|x_0)+{\mathbb{E}_{y_0|x_0}[y_0]}^2+{\rm Var}_{\cal T}(\hat{y}_0)+{\mathbb{E}_{\cal T}[\hat{y}_0]}^2-2\mathbb{E}_{y_0|x_0}[y_0] \mathbb{E}_{\cal T}[\hat{y}_0]\\
+&={\rm Var}(y_0|x_0)+{\rm Var}_{\cal T}(\hat{y}_0)+({\mathbb{E}_{y_0|x_0}[y_0]}-{\mathbb{E}_{\cal T}[\hat{y}_0]})^2
+\end{align*}
+ここで${\rm Var}(y_0|x_0)$は真の値の分散$\sigma^2$である。\\
+$|\mathbb{E}_{y_0|x_0}[y_0]-\mathbb{E}_{\cal T}[\hat{y}_0]|$はBiasと呼ばれる値で、真の値の期待値$\mathbb{E}_{y_0|x_0}[y_0]$とモデルの予測した値の期待値$\mathbb{E}_{\cal T}[\hat{y}_0]$の間の乖離を示す。最小二乗推定は不偏であることが知られており、Biasは0になる。\\
+\\
+以下では、${\rm Var}_{\cal T}(\hat{y}_0)$を計算する。\\
+トレーニングデータ${\cal T}$は入力${\bf X}$と出力$y$の組み合わせとして表現できるので、${\cal T}=({\bf X},y)$と書ける。
+\begin{align*}
+{\rm Var}_{\cal T}(\hat{y}_0)&=\mathbb{E}_{({\bf X},y)}[\hat{y}_0^2]-{\mathbb{E}_{({\bf X},y)}[\hat{y}_0]}^2\\
+&=\int \{\Pr({\bf X},y)\hat{y}_0^2 \}d{\bf X}dy-(\int\{ \Pr({\bf X},y)\hat{y}_0 \}d{\bf X}dy)^2\\
+&=\int \{\Pr({\bf X})(\int \{\Pr(y|{\bf X})\hat{y}_0^2 \}dy\})\}d{\bf X}-(\int \{\Pr({\bf X})(\int \{\Pr(y|{\bf X})\hat{y}_0 \}dy\})\}d{\bf X})^2\\
+&=\int \{\Pr({\bf X})\mathbb{E}_{\Pr(y|{\bf X})}[\hat{y}_0^2]\}d{\bf X}-(\int \{\Pr({\bf X})\mathbb{E}_{\Pr(y|{\bf X})}[\hat{y}_0]\}d{\bf X})^2\\
+&=\int \{ \Pr({\bf X})({\rm Var}_{\Pr(y|{\bf X})}(\hat{y}_0) +{\mathbb{E}_{\Pr(y|{\bf X})}[\hat{y}_0]}^2)\}d{\bf X}
+-(\int \{\Pr({\bf X})\mathbb{E}_{\Pr(y|{\bf X})}[\hat{y}_0]\}d{\bf X})^2\\
+&=\int \{\Pr({\bf X}) {\rm Var}_{\Pr(y|{\bf X})}(\hat{y}_0)\}d{\bf X} +
+ \int\{\Pr({\bf X}){\mathbb{E}_{\Pr(y|{\bf X})}[\hat{y}_0]}^2\}d{\bf X}
+-(\int \{\Pr({\bf X})\mathbb{E}_{\Pr(y|{\bf X})}[\hat{y}_0]\}d{\bf X})^2\\
+&=\mathbb{E}_{{\bf X}}[{\rm Var}_{\Pr(y|{\bf X})}(\hat{y}_0)]
++\mathbb{E}_{{\bf X}}[(\mathbb{E}_{\Pr(y|{\bf X})}[\hat{y}_0])^2]
+-(\mathbb{E}_{{\bf X}}[\mathbb{E}_{\Pr(y|{\bf X})}[\hat{y}_0]])^2\\
+&=\mathbb{E}_{{\bf X}}[{\rm Var}_{\Pr(y|{\bf X})}(\hat{y}_0)]
++{\rm Var}_{{\bf X}}(\mathbb{E}_{\Pr(y|{\bf X})}[\hat{y}_0])
+\end{align*}
+以下では、$\mathbb{E}_{{\bf X}}[{\rm Var}_{\Pr(y|{\bf X})}(\hat{y}_0)]$と${\rm Var}_{{\bf X}}(\mathbb{E}_{\Pr(y|{\bf X})}[\hat{y}_0])$を計算していく。まず、$\mathbb{E}_{{\bf X}}[{\rm Var}_{\Pr(y|{\bf X})}(\hat{y}_0)]$を展開すると
+\begin{align*}
+\mathbb{E}_{{\bf X}}[{\rm Var}_{\Pr(y|{\bf X})}(\hat{y}_0)]&=\mathbb{E}_{{\bf X}}[{\rm Var}_{\Pr(y|{\bf X})}(x_0^T\hat{\beta})]\\
+&=\mathbb{E}_{{\bf X}}[{\rm Var}_{\Pr(y|{\bf X})}(x_0^T ({\bf X}^T{\bf X})^{-1}{\bf X}^Ty)]\\
+&=\mathbb{E}_{{\bf X}}[\mathbb{E}_{\Pr(y|{\bf X})}[(x_0^T ({\bf X}^T{\bf X})^{-1}{\bf X}^Ty)^2]-(\mathbb{E}_{\Pr(y|{\bf X})}[(x_0^T ({\bf X}^T{\bf X})^{-1}{\bf X}^Ty)])^2]\\
+&=\mathbb{E}_{{\bf X}}[\mathbb{E}_{\Pr(y|{\bf X})}[(x_0^T ({\bf X}^T{\bf X})^{-1}{\bf X}^Ty)(x_0^T ({\bf X}^T{\bf X})^{-1}{\bf X}^Ty)^T]\\
+&\ \ \ \ \ \ \ -(\mathbb{E}_{\Pr(y|{\bf X})}[(x_0^T ({\bf X}^T{\bf X})^{-1}{\bf X}^Ty)])(\mathbb{E}_{\Pr(y|{\bf X})}[(x_0^T ({\bf X}^T{\bf X})^{-1}{\bf X}^Ty)^T])]\\
+&=\mathbb{E}_{{\bf X}}[\mathbb{E}_{\Pr(y|{\bf X})}[(x_0^T ({\bf X}^T{\bf X})^{-1}{\bf X}^Ty)(y^T{\bf X}({\bf X}^T{\bf X})^{-1}x_0)]\\
+&\ \ \ \ \ \ \ -(\mathbb{E}_{\Pr(y|{\bf X})}[(x_0^T ({\bf X}^T{\bf X})^{-1}{\bf X}^Ty)])(\mathbb{E}_{\Pr(y|{\bf X})}[y^T{\bf X}({\bf X}^T{\bf X})^{-1}x_0])]\\
+&=\mathbb{E}_{{\bf X}}[(x_0^T ({\bf X}^T{\bf X})^{-1}{\bf X}^T\mathbb{E}_{\Pr(y|{\bf X})}[yy^T]{\bf X}({\bf X}^T{\bf X})^{-1}x_0)\\
+&\ \ \ \ \ \ \ -(x_0^T ({\bf X}^T{\bf X})^{-1}{\bf X}^T\mathbb{E}_{\Pr(y|{\bf X})}[y]\mathbb{E}_{\Pr(y|{\bf X})}[y^T]{\bf X}({\bf X}^T{\bf X})^{-1}x_0)]\\
+&=\mathbb{E}_{{\bf X}}[(x_0^T ({\bf X}^T{\bf X})^{-1}{\bf X}^T(\mathbb{E}_{\Pr(y|{\bf X})}[yy^T]-\mathbb{E}_{\Pr(y|{\bf X})}[y]\mathbb{E}_{\Pr(y|{\bf X})}[y^T]){\bf X}({\bf X}^T{\bf X})^{-1}x_0)]
+\end{align*}
+観測値$y_i$が互いに無相関で、分散$\sigma^2$を持つとすると$\mathbb{E}_{\Pr(y|{\bf X})}[yy^T]-\mathbb{E}_{\Pr(y|{\bf X})}[y]\mathbb{E}_{\Pr(y|{\bf X})}[y^T]=\sigma^2 I$なので、
+\begin{align*}
+\mathbb{E}_{{\bf X}}[{\rm Var}_{\Pr(y|{\bf X})}(\hat{y}_0)]&=\mathbb{E}_{{\bf X}}[(x_0^T ({\bf X}^T{\bf X})^{-1}{\bf X}^T(\sigma^2 I){\bf X}({\bf X}^T{\bf X})^{-1}x_0)]\\
+&=\mathbb{E}_{{\bf X}}[x_0^T ({\bf X}^T{\bf X})^{-1}x_0\sigma^2]
+\end{align*}
+ここで、${\cal T}=({\bf X},y)$であり、またカッコの中に$y$に依存する項目が出てこないので、
+\[\mathbb{E}_{{\bf X}}[{\rm Var}_{\Pr(y|{\bf X})}(\hat{y}_0)]=\mathbb{E}_{{\bf X}}[x_0^T ({\bf X}^T{\bf X})^{-1}x_0\sigma^2]=\mathbb{E}_{\cal T}[x_0^T ({\bf X}^T{\bf X})^{-1}x_0\sigma^2]\]
+次に、${\rm Var}_{{\bf X}}(\mathbb{E}_{\Pr(y|{\bf X})}[\hat{y}_0])$を計算していく。
+\begin{align*}
+{\rm Var}_{{\bf X}}(\mathbb{E}_{\Pr(y|{\bf X})}[\hat{y}_0])&={\rm Var}_{{\bf X}}(\mathbb{E}_{\Pr(y|{\bf X})}[x_0^T\hat{\beta}])\\
+&={\rm Var}_{{\bf X}}(\mathbb{E}_{\Pr(y|{\bf X})}[x_0^T({\bf X}^T{\bf X})^{-1}{\bf X}^Ty])\\
+&={\rm Var}_{{\bf X}}(x_0^T({\bf X}^T{\bf X})^{-1}{\bf X}^T{\bf X}\beta)\\
+&={\rm Var}_{{\bf X}}(x_0^T\beta)
+\end{align*}
+これは${\bf X}$に依存しない定数なので、${\rm Var}_{{\bf X}}(\mathbb{E}_{\Pr(y|{\bf X})}[\hat{y}_0])=0$
+\\
+結局、${\rm EPE}(x_0)=\sigma^2+\mathbb{E}_{\cal T}[x_0^T ({\bf X}^T{\bf X})^{-1}x_0\sigma^2]$という(2.27)式が導かれた。
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+\item[(b)]
+$N$が大きく${\cal T}$がランダムに選択されており、$\mathbb{E}_{\cal T}(X)=0$であるとする\footnote{${\bf X}$は観測された値を行とする行列を表しており、$X$は一つの観測値の確率変数を表す。$X$は$p$次元のベクトル。}。${\bf X}^T{\bf X}\to N{\rm Cov}(X)$となるので、
+\begin{align*}
+\mathbb{E}_{x_0}[{\rm EPE}(x_0)]&=\mathbb{E}_{x_0}[x_0^T \mathbb{E}_{\cal T}[({\bf X}^T{\bf X})^{-1}]x_0]\sigma^2+\sigma^2\\
+&\sim\mathbb{E}_{x_0}[x_0^T (N{\rm Cov}(X))^{-1}x_0]\sigma^2+\sigma^2\\
+&=\mathbb{E}_{x_0}[x_0^T ({\rm Cov}(X))^{-1}x_0]\sigma^2/N+\sigma^2
+\end{align*}
+トレース演算の巡回性$[{\rm trace}(AB)={\rm trace}(BA)]$および線形性により
+\begin{align*}
+\mathbb{E}_{x_0}[{\rm EPE}(x_0)]&\sim{\rm trace}[\mathbb{E}_{x_0}[x_0^T ({\rm Cov}(X))^{-1}x_0]]\sigma^2/N+\sigma^2\\
+&=\mathbb{E}_{x_0}[{\rm trace}[x_0^T ({\rm Cov}(X))^{-1}x_0]]\sigma^2/N+\sigma^2\\
+&=\mathbb{E}_{x_0}[{\rm trace}[ ({\rm Cov}(X))^{-1}x_0x_0^T]]\sigma^2/N+\sigma^2\\
+&={\rm trace}[ ({\rm Cov}(X))^{-1}\mathbb{E}_{x_0}[x_0x_0^T]]\sigma^2/N+\sigma^2
+\end{align*}
+$\mathbb{E}_{\cal T}[X]=0$より$\mathbb{E}_{x_0}[x_0]=0$である。$\mathbb{E}_{x_0}[x_0x_0^T]=\mathbb{E}_{x_0}[(x_0-\mathbb{E}_{x_0}[x_0])(x_0-\mathbb{E}_{x_0}[x_0])^T]={\rm Cov}(x_0)$となるので、
+\begin{align*}
+\mathbb{E}_{x_0}[{\rm EPE}(x_0)]&\sim{\rm trace}[ ({\rm Cov}(X))^{-1}{\rm Cov}(x_0)]\sigma^2/N+\sigma^2\\
+&={\rm trace}[ ({\rm Cov}(X))^{-1}{\rm Cov}(x_0)]\sigma^2/N+\sigma^2\\
+&={\rm trace}[{\rm I}]\sigma^2/N+\sigma^2\\
+&=p\sigma^2/N+\sigma^2
+\end{align*}
+以上により、式(2.28)が導かれた。
+\end{enumerate}
 
 
 
