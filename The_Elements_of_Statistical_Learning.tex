@@ -21,17 +21,17 @@
 \section{教師あり学習の概要}
 %%% Ex.2.1
 \subsection{}
-\begin{shadebox}
-$K$クラス分類問題の目標変数$t_k$が、第$k$要素のみが$1$で他の要素は$0$である$K$次元ベクトルによって表されているとする。予測結果$\hat{y}$を全ての要素の和が$1$となるように正規化したとき、$\hat{y}$の最大要素を持つクラスへの分類と$||t_k-\hat{y}||$を最小化するクラスへの分類が等価であることを示せ。
-\end{shadebox}
-$\hat{y}$の最大要素が第$j$要素$\hat{y_j}$であるとする。
-\begin{align*}
-&\ \ \ ||t_k-\hat{y}||^2-||t_j-\hat{y}||^2\\
-&=\{\sum_{i\neq k}\hat{y_i}^2+(1-\hat{y_k})^2\}-\{\sum_{i\neq j}\hat{y_i}^2+(1-\hat{y_j})^2\}\\
-&=\hat{y_j}^2+(1-\hat{y_k})^2-\hat{y_k}^2-(1-\hat{y_j})^2\\
-&=2(\hat{y_j}-\hat{y_k})\geq0
-\end{align*}
-よって、$k=j$のとき、$||t_k-\hat{y}||$が最小になることがわかる。以上より、$\hat{y}$の最大要素を持つクラスへの分類$j$と、$||t_k-\hat{y}||$を最小化するクラスへの分類が等価であることがわかる。
+%\begin{shadebox}
+%$K$クラス分類問題の目標変数$t_k$が、第$k$要素のみが$1$で他の要素は$0$である$K$次元ベクトルによって表されているとする。予測結果$\hat{y}$を全ての要素の和が$1$となるように正規化したとき、$\hat{y}$の最大要素を持つクラスへの分類と$||t_k-\hat{y}||$を最小化するクラスへの分類が等価であることを示せ。
+%\end{shadebox}
+%$\hat{y}$の最大要素が第$j$要素$\hat{y_j}$であるとする。
+%\begin{align*}
+%&\ \ \ ||t_k-\hat{y}||^2-||t_j-\hat{y}||^2\\
+%&=\{\sum_{i\neq k}\hat{y_i}^2+(1-\hat{y_k})^2\}-\{\sum_{i\neq j}\hat{y_i}^2+(1-\hat{y_j})^2\}\\
+%&=\hat{y_j}^2+(1-\hat{y_k})^2-\hat{y_k}^2-(1-\hat{y_j})^2\\
+%&=2(\hat{y_j}-\hat{y_k})\geq0
+%\end{align*}
+%よって、$k=j$のとき、$||t_k-\hat{y}||$が最小になることがわかる。以上より、$\hat{y}$の最大要素を持つクラスへの分類$j$と、$||t_k-\hat{y}||$を最小化するクラスへの分類が等価であることがわかる。
 
 
 %%% 2.2
@@ -156,7 +156,7 @@ $|\mathbb{E}_{y_0|x_0}[y_0]-\mathbb{E}_{\cal T}[\hat{y}_0]|$はBiasと呼ばれ�
 &\ \ \ \ \ \ \ -(x_0^T ({\bf X}^T{\bf X})^{-1}{\bf X}^T\mathbb{E}_{\Pr(y|{\bf X})}[y]\mathbb{E}_{\Pr(y|{\bf X})}[y^T]{\bf X}({\bf X}^T{\bf X})^{-1}x_0)]\\
 &=\mathbb{E}_{{\bf X}}[(x_0^T ({\bf X}^T{\bf X})^{-1}{\bf X}^T(\mathbb{E}_{\Pr(y|{\bf X})}[yy^T]-\mathbb{E}_{\Pr(y|{\bf X})}[y]\mathbb{E}_{\Pr(y|{\bf X})}[y^T]){\bf X}({\bf X}^T{\bf X})^{-1}x_0)]
 \end{align*}
-観測値$y_i$が互いに無相関で、分散$\sigma^2$を持つとすると$\mathbb{E}_{\Pr(y|{\bf X})}[yy^T]-\mathbb{E}_{\Pr(y|{\bf X})}[y]\mathbb{E}_{\Pr(y|{\bf X})}[y^T]=\sigma^2 I$なので、
+観測値$y_i$が互いに独立で、分散$\sigma^2$を持つとすると$\mathbb{E}_{\Pr(y|{\bf X})}[yy^T]-\mathbb{E}_{\Pr(y|{\bf X})}[y]\mathbb{E}_{\Pr(y|{\bf X})}[y^T]=\sigma^2 I$なので、
 \begin{align*}
 \mathbb{E}_{{\bf X}}[{\rm Var}_{\Pr(y|{\bf X})}(\hat{y}_0)]&=\mathbb{E}_{{\bf X}}[(x_0^T ({\bf X}^T{\bf X})^{-1}{\bf X}^T(\sigma^2 I){\bf X}({\bf X}^T{\bf X})^{-1}x_0)]\\
 &=\mathbb{E}_{{\bf X}}[x_0^T ({\bf X}^T{\bf X})^{-1}x_0\sigma^2]
@@ -207,9 +207,42 @@ $\mathbb{E}_{\cal T}[X]=0$より$\mathbb{E}_{x_0}[x_0]=0$である。$\mathbb{E}
 
 
 
+%2.6
+\subsection{}
 
+%2.7
+\subsection{}
 
+%2.8
+\subsection{}
 
+%2.9
+\subsection{}
+\begin{align*}
+\mathbb{E}_{\{X,y\}}[R_{\rm tr}(\hat{\beta})]&=\mathbb{E}_{\{X,y\}}[\min_{\beta}R_{\rm tr}(\beta)]\\
+&\leq\min_{\beta}\mathbb{E}_{\{X,y\}}[R_{\rm tr}(\beta)]\\
+&=\min_{\beta}\mathbb{E}_{\{\tilde{X},\tilde{y}\}}[R_{\rm te}(\beta)]\\
+&\leq \mathbb{E}_{\{\tilde{X},\tilde{y}\}}[R_{\rm te}(\hat{\beta})]
+\end{align*}
+上記のそれぞれの等号や不等号の変形を証明すれば良い。\\
+\begin{enumerate}
+\item
+$\mathbb{E}_{\{X,y\}}[R_{\rm tr}(\hat{\beta})]=\mathbb{E}_{\{X,y\}}[\min_{\beta}R_{\rm tr}(\beta)]$は定義より成り立つ。
+\item
+それぞれの値を$\beta$で最小化してから期待値（平均値）を取った方が、平均値を取った後に$\beta$で最小化するよりも小さいか等しくなるので、$\mathbb{E}_{\{X,y\}}[\min_{\beta}R_{\rm tr}(\beta)]\leq\min_{\beta}\mathbb{E}_{\{X,y\}}[R_{\rm tr}(\beta)]$が成り立つ。
+\item
+\begin{align*}
+\min_{\beta}\mathbb{E}_{\{X,y\}}[R_{\rm tr}(\beta)]&=
+\min_{\beta}\mathbb{E}_{\{X,y\}}[\frac{1}{N}\sum_{i=1}^{N}(y_i-\beta^{\mathrm{T}}x_i)^2]\\
+&=\min_{\beta}\mathbb{E}_{\{x,y\}}[(y-\beta^{\mathrm{T}}x)^2]\\
+&=\min_{\beta}\mathbb{E}_{\{\tilde{x},\tilde{y}\}}[(\tilde{y}-\beta^{\mathrm{T}}\tilde{x})^2]\\
+&=\min_{\beta}\mathbb{E}_{\{\tilde{X},\tilde{y}\}}[\frac{1}{M}\sum_{i=1}^{M}(\tilde{y_i}-\beta^{\mathrm{T}}\tilde{x_i})^2]\\
+&=\min_{\beta}\mathbb{E}_{\{\tilde{X},\tilde{y}\}}[R_{\rm te}(\beta)]
+\end{align*}
+より$\min_{\beta}\mathbb{E}_{\{X,y\}}[R_{\rm tr}(\beta)]=\min_{\beta}\mathbb{E}_{\{\tilde{X},\tilde{y}\}}[R_{\rm te}(\beta)]$が成り立つ。
+\item
+$\min_{\beta}$という関数の定義から$\min_{\beta}\mathbb{E}_{\{\tilde{X},\tilde{y}\}}[R_{\rm te}(\beta)]\leq \mathbb{E}_{\{\tilde{X},\tilde{y}\}}[R_{\rm te}(\hat{\beta})]$が成り立つ。
+\end{enumerate}
 
 
 
