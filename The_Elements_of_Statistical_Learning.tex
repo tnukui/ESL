@@ -31,7 +31,7 @@ $\hat{y}$の最大要素が第$j$要素$\hat{y_j}$であるとする。
 &=\hat{y_j}^2+(1-\hat{y_k})^2-\hat{y_k}^2-(1-\hat{y_j})^2\\
 &=2(\hat{y_j}-\hat{y_k})\geq0
 \end{align*}
-よって、$k=j$のとき、$||t_k-\hat{y}||$が最小になることがわかる。以上より、$\hat{y}$の最大要素を持つクラスへの分類$j$と、$||t_k-\hat{y}||$を最小化するクラスへの分類が等価であることがわかる。
+よって、$k=j$のとき、かつその時に限り、$||t_k-\hat{y}||$が最小値$||t_j-\hat{y}||$になることがわかる。以上より、$\hat{y}$の最大要素を持つクラスへの分類$j$と、$||t_k-\hat{y}||$を最小化するクラスへの分類が等価であることがわかる。
 
 
 %%% 2.2
@@ -227,7 +227,7 @@ $\mathbb{E}_{\cal T}[X]=0$より$\mathbb{E}_{x_0}[x_0]=0$である。$\mathbb{E}
 上記のそれぞれの等号や不等号の変形を証明すれば良い。\\
 \begin{enumerate}
 \item
-$\mathbb{E}_{\{X,y\}}[R_{\rm tr}(\hat{\beta})]=\mathbb{E}_{\{X,y\}}[\min_{\beta}R_{\rm tr}(\beta)]$は定義より成り立つ。
+$\mathbb{E}_{\{X,y\}}[R_{\rm tr}(\hat{\beta})]=\mathbb{E}_{\{X,y\}}[\min_{\beta}R_{\rm tr}(\beta)]$は最小２乗法の定義より成り立つ。
 \item
 それぞれの値を$\beta$で最小化してから期待値（平均値）を取った方が、平均値を取った後に$\beta$で最小化するよりも小さいか等しくなるので、$\mathbb{E}_{\{X,y\}}[\min_{\beta}R_{\rm tr}(\beta)]\leq\min_{\beta}\mathbb{E}_{\{X,y\}}[R_{\rm tr}(\beta)]$が成り立つ。
 \item
