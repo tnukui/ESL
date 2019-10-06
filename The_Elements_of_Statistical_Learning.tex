@@ -336,4 +336,53 @@ g_2(X)&=e (X-\xi_1)^3 \\
 g_3(X)&=j (X-\xi_2)^3
 \end{align*}
 と表現できることになり、この$g(X)$は関数$f(X)$と同じ形になった。以上より、関数$f$の形で任意の3次スプライン関数が表現できることになり、関数$h_1,...,h_6$は3次スプラインの基底であることがわかった。
+
+
+
+
+%%% Ex. 5.2
+\subsection{}
+Later
+
+
+%%% Ex. 5.3
+\subsection{}
+Later
+
+
+
+
+%%% Ex. 5.4
+\subsection{}
+\begin{shadebox}
+$K$個の内部節点を持つ3次スプラインの切断ベキ級数表現を考える。$f(X)$を次のように与える。
+\[f(X)=\sum_{j=0}^3 \beta_j X^j + \sum_{k=1}^{K}\theta_k(X-\xi_k)_+^3\]
+
+3次スプライン(5.2.1項)の自然境界条件が係数に関する次の線形制約を意味することを証明せよ。
+\[\beta_2=0,\ \ \sum_{k=1}^{K}\theta_k=0\]
+\[\beta_3=0,\ \ \sum_{k=1}^{K}\xi_k\theta_k=0\]
+さらに、基底(5.4)および(5.5)を導け。
+\end{shadebox}
+
+$f(X)$を微分すると、以下のように表せる。
+\begin{align*}
+f'(X)&=\beta_1+2\beta_2 X+3\beta_3 X^2+3\sum_{k=1}^{K}\theta_k(X-\xi_k)_+^2\\
+f''(X)&=2\beta_2 +6\beta_3 X+6\sum_{k=1}^{K}\theta_k(X-\xi_k)_+\\
+f'''(X)&=6\beta_3+6\sum_{k=1}^{K}\theta_k I(\xi_k\leq X)
+\end{align*}
+３次スプライン$f(X)$の境界接点を$s,t\ \ (s<\xi_1,\ t>\xi_K)$とすると、3次自然スプラインの条件により$X=s, X=t$の点で$f$は線形になるはずなので、$f''(s)=0,\ f'''(s)=0,\ f''(t)=0,\ f'''(t)=0$を代入すれば、
+\[\beta_2=0,\ \ \sum_{k=1}^{K}\theta_k=0\]
+\[\beta_3=0,\ \ \sum_{k=1}^{K}\xi_k\theta_k=0\]
+が得られる。\\
+さて、任意の実数$\phi_1,\phi_2,...,\phi_{K-2}$について、
+\begin{align*}
+\theta_k&=\frac{\phi_k}{\xi_K-\xi_k}\ \ \ (k=1,2,...,K-2)\\
+\theta_{K-1}&=-\frac{\sum_{k=1}^{K-2}\phi_k}{\xi_K-\xi_{K-1}}\\
+\theta_K&=-\sum_{k=1}^{K-2}\frac{\phi_k}{\xi_K-\xi_k}+\frac{\sum_{k=1}^{K-2}\phi_k}{\xi_K-\xi_{K-1}}
+\end{align*}
+とおけば、$\sum_{k=1}^{K}\theta_k=0,\ \sum_{k=1}^{K}\xi_k\theta_k=0$を満たす。$\phi_1,\phi_2,...,\phi_{K-2}$は任意の実数で良かったので、任意の3次自然スプラインの係数$\theta_1,\theta_2,...,\theta_K$が上式の形で表現できることもわかる。$\phi_k$を$N_{k+2}(X)$の係数と考えれば、式(5.4)と式(5,5)が導ける。
+
+
+
+
 \end{document}
